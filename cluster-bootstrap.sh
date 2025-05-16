@@ -89,7 +89,7 @@ fi
 
 echo ""
 echo "Installing ArgoCD CRD"
-kubectl apply -f https://raw.githubusercontent.com/devopsnow-deployments/tools/main/scripts/application-crd.yaml
+kubectl apply -f https://raw.githubusercontent.com/aravind-ainions/installer/refs/heads/main/application-crd.yaml
 echo "Installing the bootstrap components to the namespace $namespace ..."
 helm upgrade --install k8s-bootstrap -n $namespace --create-namespace k8s-bootstrap \
   --repo https://$repo_username:$repo_password@raw.githubusercontent.com/ainions/charts/main \
