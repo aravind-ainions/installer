@@ -14,11 +14,11 @@ do
             cluster_env)              cluster_env=${VALUE} ;;
             cluster_name)              cluster_name=${VALUE} ;;
             namespace)    namespace=${VALUE} ;;   
-            opsverse_repo_username)    opsverse_repo_username=${VALUE} ;;
-            opsverse_repo_password)    opsverse_repo_password=${VALUE} ;;
-            opsverse_application_sourceRepoURL)    opsverse_application_sourceRepoURL=${VALUE} ;;
-            opsverse_registry_username)    opsverse_registry_username=${VALUE} ;;
-            opsverse_registry_password)    opsverse_registry_password=${VALUE} ;;
+            repo_username)    repo_username=${VALUE} ;;
+            repo_password)    repo_password=${VALUE} ;;
+            cluster_fleet_config_sourceRepoURL)    cluster_fleet_config_sourceRepoURL=${VALUE} ;;
+            helm_registry_username)    helm_registry_username=${VALUE} ;;
+            helm_registry_password)    helm_registry_password=${VALUE} ;;
             *)   
     esac    
 done
@@ -27,7 +27,7 @@ done
 # print  help if needed
 
 # Setup some derived variables
-opsverse_application_sourceRepoPath="$cluster_type/$cluster_provider/$cluster_region/$cluster_env/$cluster_name/apps"
+cluster_fleet_config_sourceRepoPath="$cluster_type/$cluster_provider/$cluster_region/$cluster_env/$cluster_name/apps"
 
 # # Testing
 # echo "cluster_name = $cluster_name"
@@ -89,7 +89,7 @@ fi
 
 echo ""
 echo "Installing ArgoCD CRD"
-# kubectl apply -f https://raw.githubusercontent.com/devopsnow-deployments/tools/main/scripts/application-crd.yaml
+kubectl apply -f https://raw.githubusercontent.com/devopsnow-deployments/tools/main/scripts/application-crd.yaml
 echo "Installing the bootstrap components to the namespace $namespace ..."
 helm upgrade --install k8s-bootstrap -n $namespace --create-namespace k8s-bootstrap \
   --repo https://$repo_username:$repo_password@raw.githubusercontent.com/ainions/charts/main \
@@ -98,12 +98,12 @@ helm upgrade --install k8s-bootstrap -n $namespace --create-namespace k8s-bootst
   --set ainions.repo.username=$helm_chart_repo_username \
   --set ainions.repo.password=$helm_chart_repo_password \
   --set ainions.application.sourceRepoURL=$cluster_fleet_config_sourceRepoURL \
-  --set ainions.application.sourceRepoPath=$opsverse_application_sourceRepoPath
+  --set ainions.application.sourceRepoPath=$cluster_fleet_config_sourceRepoPath
 
 echo ""
 echo "Waiting for sealed-secrets component to create the key pair ..."
 sleep 60
 
-echo "Please send the following public key (base64 encoded) back to OpsVerse..."
+echo "Please save the following public key (base64 encoded)..."
 echo ""
 echo `kubectl get secret -n ${namespace} -l 'sealedsecrets.bitnami.com/sealed-secrets-key=active' -o jsonpath='{.items[].data.tls\.crt}'`
