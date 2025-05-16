@@ -3,7 +3,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     helm.sh/resource-policy: keep
-    meta.helm.sh/release-name: remote-bootstrap-now
+    meta.helm.sh/release-name: k8s-bootstrap
     meta.helm.sh/release-namespace: infra
   labels:
     app.kubernetes.io/managed-by: Helm
