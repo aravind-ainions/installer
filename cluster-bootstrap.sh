@@ -100,10 +100,10 @@ helm upgrade --install k8s-bootstrap -n $namespace --create-namespace k8s-bootst
   --set ainions.application.sourceRepoURL=$cluster_fleet_config_sourceRepoURL \
   --set ainions.application.sourceRepoPath=$cluster_fleet_config_sourceRepoPath
 
-echo ""
-echo "Waiting for sealed-secrets component to create the key pair ..."
-sleep 60
+# echo ""
+# echo "Waiting for sealed-secrets component to create the key pair ..."
+# sleep 60
 
-echo "Please save the following public key (base64 encoded)..."
-echo ""
-echo `kubectl get secret -n ${namespace} -l 'sealedsecrets.bitnami.com/sealed-secrets-key=active' -o jsonpath='{.items[].data.tls\.crt}'`
+# echo "Please save the following public key (base64 encoded)..."
+# echo ""
+# echo `kubectl get secret -n ${namespace} -l 'sealedsecrets.bitnami.com/sealed-secrets-key=active' -o jsonpath='{.items[].data.tls\.crt}'`
