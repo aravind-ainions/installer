@@ -27,7 +27,8 @@ done
 # print  help if needed
 
 # Setup some derived variables
-cluster_fleet_config_sourceRepoPath="$cluster_type/$cluster_provider/$cluster_region/$cluster_env/$cluster_name/apps"
+# cluster_fleet_config_sourceRepoPath="$cluster_type/$cluster_provider/$cluster_region/$cluster_env/$cluster_name/apps"
+cluster_fleet_config_sourceRepoPath="$cluster_env/$cluster_provider/$cluster_region/$cluster_name/apps"
 
 # # Testing
 # echo "cluster_name = $cluster_name"
