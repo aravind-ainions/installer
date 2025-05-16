@@ -95,8 +95,8 @@ helm upgrade --install k8s-bootstrap -n $namespace --create-namespace k8s-bootst
   --repo https://$repo_username:$repo_password@raw.githubusercontent.com/ainions/charts/main \
   --username $helm_registry_username \
   --password $helm_registry_password \
-  --set ainions.repo.username=$helm_chart_repo_username \
-  --set ainions.repo.password=$helm_chart_repo_password \
+  --set ainions.repo.username=$helm_registry_username \
+  --set ainions.repo.password=$helm_registry_password \
   --set ainions.application.sourceRepoURL=$cluster_fleet_config_sourceRepoURL \
   --set ainions.application.sourceRepoPath=$cluster_fleet_config_sourceRepoPath
 
